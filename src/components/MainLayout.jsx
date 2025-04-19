@@ -19,6 +19,9 @@ import {
 } from "@heroicons/react/20/solid";
 import PostAction from "./PostAction";
 import { Navigate, Outlet, Link } from "react-router-dom";
+import logo from "../assets/Logo.png"; 
+
+
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon, current: true },
@@ -99,12 +102,12 @@ export default function MainLayout() {
                   </Transition.Child>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
-                    <div className="flex h-16 shrink-0 items-center">
-                      {/* <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                        alt="Your Company"
-                      /> */}
+                  <div className="flex h-24 items-center justify-center">
+                      {<img
+                        className="h-18 w-auto"
+                        src={logo}
+                        alt="Your Logo" />
+                      }
                     </div>
                     <nav className="flex flex-1 flex-col">
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -192,14 +195,16 @@ export default function MainLayout() {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
-            <div className="flex h-16 shrink-0 items-center">
-              {/* <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt="Your Company"
-              /> */}
-            </div>
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white text-white px-6 pb-4">
+          <div className="flex h-24 items-center justify-center">
+            <Link to="/">
+              <img
+                className="h-20 w-auto cursor-pointer"
+                src={logo}
+                alt="Your Logo"
+              />
+            </Link>
+          </div>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
@@ -382,9 +387,8 @@ export default function MainLayout() {
             </div>
           </div>
 
-          <main className="py-10">
+          <main className="py-10 bg-[#D9DCD6] min-h-screen">
             <div className="px-4 sm:px-6 lg:px-8">
-              {/* Your content */}
               <Outlet />
             </div>
           </main>

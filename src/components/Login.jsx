@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/Logo.png";
 
 
@@ -36,7 +36,13 @@ export default function Login({ setLoggedIn }) {
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#d9dcd6] px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-        <img src={logo} alt="Logo" className="mx-auto mb-4 w-20 h-20" />
+        <Link to="/">
+          <img
+            src={logo}
+            alt="Logo"
+            className="mx-auto mb-4 w-20 h-20 cursor-pointer"
+          />
+        </Link>
         <h2 className="text-3xl font-bold text-center text-[#2f6690] mb-6">
           Sign in to your account
         </h2>
