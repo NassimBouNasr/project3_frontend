@@ -13,6 +13,8 @@ import {
   UsersIcon,
   XMarkIcon,
   ChatBubbleBottomCenterIcon,
+  UserGroupIcon,
+  HeartIcon,
 } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
@@ -21,19 +23,6 @@ import {
 import PostAction from "./PostAction";
 import { Navigate, Outlet, Link, useNavigate } from "react-router-dom";
 
-const navigation = [
-  { name: "Home", href: "/", icon: HomeIcon, current: true },
-  { name: "Members", href: "/members", icon: UsersIcon, current: false },
-  { name: "Friends", href: "/friends", icon: UsersIcon, current: false },
-
-  {
-    name: "Chats",
-    href: "/chat",
-    icon: ChatBubbleBottomCenterIcon,
-    current: false,
-  },
-  { name: "Groups", href: "/groups", icon: UsersIcon, current: false },
-];
 const userNavigation = [
   { name: "Your profile", href: "#" },
   { name: "Sign out", href: "#" },
@@ -59,6 +48,27 @@ export default function MainLayout({ user }) {
     }
   };
 
+  const [navigation, setNavigation] = useState([
+    { name: "Home", href: "/", icon: HomeIcon, current: true },
+    { name: "Members", href: "/members", icon: UsersIcon, current: false },
+    { name: "Friends", href: "/friends", icon: HeartIcon, current: false },
+    {
+      name: "Chats",
+      href: "/chat",
+      icon: ChatBubbleBottomCenterIcon,
+      current: false,
+    },
+    { name: "Groups", href: "/groups", icon: UserGroupIcon, current: false },
+  ]);
+
+  const handleNavigationClick = (clickedItemName) => {
+    setNavigation((prevNavigation) =>
+      prevNavigation.map((item) => ({
+        ...item,
+        current: item.name === clickedItemName,
+      }))
+    );
+  };
   return (
     <>
       <div>
@@ -132,6 +142,9 @@ export default function MainLayout({ user }) {
                             {navigation.map((item) => (
                               <li key={item.name}>
                                 <Link
+                                  onClick={() =>
+                                    handleNavigationClick(item.name)
+                                  }
                                   to={item.href}
                                   className={classNames(
                                     item.current
@@ -228,6 +241,7 @@ export default function MainLayout({ user }) {
                     {navigation.map((item) => (
                       <li key={item.name}>
                         <Link
+                          onClick={() => handleNavigationClick(item.name)}
                           to={item.href}
                           className={classNames(
                             item.current
@@ -335,13 +349,13 @@ export default function MainLayout({ user }) {
                 />
               </form>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
-                <button
+                {/* <button
                   type="button"
                   className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                </button> */}
 
                 {/* Separator */}
                 <div
