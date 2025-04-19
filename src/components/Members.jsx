@@ -1,16 +1,33 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Members() {
+export default function Members({ currentUser }) {
   const [users, setUsers] = useState([]);
+  const [friends, setFriends] = useState([]); // Track the added friends
 
   useEffect(() => {
-    // Fetch the list of users
+    // Fetch all users and exclude the current user from the list
     axios
       .get("http://localhost:8080/users", { withCredentials: true })
-      .then((res) => setUsers(res.data))
+      .then((res) => {
+        const filteredUsers = res.data.filter(
+          (user) => user.id !== currentUser.id
+        ); // Exclude current user
+        setUsers(filteredUsers);
+      })
       .catch((err) => console.error("Error fetching users:", err));
-  }, []);
+  }, [currentUser]);
+
+  useEffect(() => {
+    // Fetch the list of friends for the current user to track existing friends
+    axios
+      .get("http://localhost:8080/friends", { withCredentials: true })
+      .then((res) => {
+        const friendIds = res.data.map((friend) => friend.id); // Assuming response contains friend IDs
+        setFriends(friendIds); // Store the friend IDs
+      })
+      .catch((err) => console.error("Error fetching friends:", err));
+  }, [currentUser]);
 
   const addFriend = (friendId) => {
     // Send the friend request
@@ -20,7 +37,10 @@ export default function Members() {
         { id: friendId },
         { withCredentials: true }
       )
-      .then(() => alert("Friend request sent!"))
+      .then(() => {
+        alert("Friend added!");
+        setFriends((prevFriends) => [...prevFriends, friendId]); // Add the new friend to the state
+      })
       .catch((err) => console.error("Error adding friend:", err));
   };
 
@@ -48,12 +68,21 @@ export default function Members() {
             </div>
           </div>
           <div className="flex flex-none items-center gap-x-4">
-            <button
-              onClick={() => addFriend(user.id)}
-              className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
-            >
-              Add Friend
-            </button>
+            {friends.includes(user.id) ? (
+              <button
+                onClick={() => alert("Messaging is not implemented yet")}
+                className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+              >
+                Message
+              </button>
+            ) : (
+              <button
+                onClick={() => addFriend(user.id)}
+                className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+              >
+                Add Friend
+              </button>
+            )}
           </div>
         </li>
       ))}

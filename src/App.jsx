@@ -52,7 +52,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="chat" element={<ChatComponent />} />
         <Route path="groups" element={<Groups />} />
-        <Route path="members" element={<Members />} />
+        <Route path="members" element={<Members currentUser={user} />} />
         <Route path="friends" element={<Friends />} />
       </Route>
     </Routes>

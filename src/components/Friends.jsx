@@ -9,6 +9,7 @@ export default function Friends() {
       .get("http://localhost:8080/friends", { withCredentials: true })
       .then((res) => setFriends(res.data))
       .catch((err) => console.error("Error fetching friends:", err));
+    console.log(friends);
   }, []);
 
   return (
