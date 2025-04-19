@@ -51,9 +51,9 @@ function App() {
         {/* Nested routes that render inside MainLayout's <Outlet /> */}
         <Route index element={<Home />} />
         <Route path="chat" element={<ChatComponent />} />
-        <Route path="groups" element={<Groups />} />
+        <Route path="groups" element={<Groups currentUser={user} />} />
         <Route path="members" element={<Members currentUser={user} />} />
-        <Route path="friends" element={<Friends />} />
+        <Route path="friends" element={<Friends currentUser={user} />} />
       </Route>
     </Routes>
   );

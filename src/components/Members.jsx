@@ -70,10 +70,10 @@ export default function Members({ currentUser }) {
           <div className="flex flex-none items-center gap-x-4">
             {friends.includes(user.id) ? (
               <button
-                onClick={() => alert("Messaging is not implemented yet")}
-                className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+                disabled
+                className="rounded-md bg-gray-400 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm cursor-default"
               >
-                Message
+                Already friends
               </button>
             ) : (
               <button

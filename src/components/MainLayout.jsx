@@ -52,12 +52,6 @@ export default function MainLayout({ user }) {
     { name: "Home", href: "/", icon: HomeIcon, current: true },
     { name: "Members", href: "/members", icon: UsersIcon, current: false },
     { name: "Friends", href: "/friends", icon: HeartIcon, current: false },
-    {
-      name: "Chats",
-      href: "/chat",
-      icon: ChatBubbleBottomCenterIcon,
-      current: false,
-    },
     { name: "Groups", href: "/groups", icon: UserGroupIcon, current: false },
   ]);
 
@@ -332,22 +326,22 @@ export default function MainLayout({ user }) {
             />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <form className="relative flex flex-1" action="#" method="GET">
-                <label htmlFor="search-field" className="sr-only">
+              <div className="relative flex flex-1">
+                {/* <label htmlFor="search-field" className="sr-only">
                   Search
-                </label>
-                <MagnifyingGlassIcon
+                </label> */}
+                {/* <MagnifyingGlassIcon
                   className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
                   aria-hidden="true"
-                />
-                <input
+                /> */}
+                {/* <input
                   id="search-field"
                   className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                   placeholder="Search..."
                   type="search"
                   name="search"
-                />
-              </form>
+                /> */}
+              </div>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 {/* <button
                   type="button"
