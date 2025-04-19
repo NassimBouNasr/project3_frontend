@@ -18,7 +18,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import PostAction from "./PostAction";
-import { Navigate, Outlet, Link } from "react-router-dom";
+import { Navigate, Outlet, Link, useNavigate } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon, current: true },
@@ -42,6 +42,19 @@ function classNames(...classes) {
 
 export default function MainLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await fetch("http://localhost:8080/users/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      navigate("/login");
+    } catch (error) {
+      console.error("Sign out failed:", error);
+    }
+  };
 
   return (
     <>
@@ -169,7 +182,7 @@ export default function MainLayout() {
                             ))}
                           </ul>
                         </li> */}
-                        <li className="mt-auto">
+                        {/* <li className="mt-auto">
                           <a
                             href="#"
                             className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
@@ -180,7 +193,7 @@ export default function MainLayout() {
                             />
                             Settings
                           </a>
-                        </li>
+                        </li> */}
                       </ul>
                     </nav>
                   </div>
@@ -263,7 +276,7 @@ export default function MainLayout() {
                     ))}
                   </ul>
                 </li> */}
-                <li className="mt-auto">
+                {/* <li className="mt-auto">
                   <a
                     href="#"
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
@@ -274,7 +287,7 @@ export default function MainLayout() {
                     />
                     Settings
                   </a>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </div>
@@ -361,21 +374,19 @@ export default function MainLayout() {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                      {userNavigation.map((item) => (
-                        <Menu.Item key={item.name}>
-                          {({ active }) => (
-                            <a
-                              href={item.href}
-                              className={classNames(
-                                active ? "bg-gray-50" : "",
-                                "block px-3 py-1 text-sm leading-6 text-gray-900"
-                              )}
-                            >
-                              {item.name}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      ))}
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            onClick={handleSignOut}
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block w-full text-left px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Sign out
+                          </button>
+                        )}
+                      </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
