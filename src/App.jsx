@@ -49,7 +49,7 @@ function App() {
         }
       >
         {/* Nested routes that render inside MainLayout's <Outlet /> */}
-        <Route index element={<Home />} />
+        <Route index element={<Home currentUser={user} />} />
         <Route path="chat" element={<ChatComponent />} />
         <Route path="groups" element={<Groups currentUser={user} />} />
         <Route path="members" element={<Members currentUser={user} />} />
