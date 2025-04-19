@@ -3,18 +3,29 @@ import Login from "./components/Login";
 import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import SignUp from "./components/Signup";
+import ChatComponent from "./components/ChatComponent";
+import Groups from "./components/Groups";
+import MainLayout from "./components/MainLayout";
 import Home from "./components/Home";
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={loggedIn ? <Home /> : <Navigate to="/login" />}
-      />
+      {/* Public routes */}
       <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
       <Route path="/signup" element={<SignUp />} />
+
+      {/* Protected layout route */}
+      <Route
+        path="/"
+        element={loggedIn ? <MainLayout /> : <Navigate to="/login" />}
+      >
+        {/* Nested routes that render inside MainLayout's <Outlet /> */}
+        <Route index element={<Home />} />
+        <Route path="chat" element={<ChatComponent />} />
+        <Route path="groups" element={<Groups />} />
+      </Route>
     </Routes>
   );
 }
