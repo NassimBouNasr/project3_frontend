@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login({ setLoggedIn }) {
+export default function Login({ setLoggedIn, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -20,7 +20,9 @@ export default function Login({ setLoggedIn }) {
       });
 
       if (response.ok) {
+        const userData = await response.json();
         setLoggedIn(true);
+        setUser(userData);
         navigate("/");
       } else {
         alert("Invalid credentials");
@@ -70,14 +72,6 @@ export default function Login({ setLoggedIn }) {
               >
                 Password
               </label>
-              {/* <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot password?
-                </a>
-              </div> */}
             </div>
             <div className="mt-2">
               <input

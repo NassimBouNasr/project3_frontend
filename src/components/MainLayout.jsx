@@ -23,6 +23,8 @@ import { Navigate, Outlet, Link, useNavigate } from "react-router-dom";
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon, current: true },
   { name: "Members", href: "/members", icon: UsersIcon, current: false },
+  { name: "Friends", href: "/friends", icon: UsersIcon, current: false },
+
   {
     name: "Chats",
     href: "/chat",
@@ -40,7 +42,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function MainLayout() {
+export default function MainLayout({ user }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -356,7 +358,7 @@ export default function MainLayout() {
                         className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                         aria-hidden="true"
                       >
-                        Tom Cook
+                        {user.username}
                       </span>
                       <ChevronDownIcon
                         className="ml-2 h-5 w-5 text-gray-400"

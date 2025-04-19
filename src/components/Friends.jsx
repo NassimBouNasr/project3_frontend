@@ -1,32 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Members() {
-  const [users, setUsers] = useState([]);
+export default function Friends() {
+  const [friends, setFriends] = useState([]);
 
   useEffect(() => {
-    // Fetch the list of users
     axios
-      .get("http://localhost:8080/users", { withCredentials: true })
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.error("Error fetching users:", err));
+      .get("http://localhost:8080/friends", { withCredentials: true })
+      .then((res) => setFriends(res.data))
+      .catch((err) => console.error("Error fetching friends:", err));
   }, []);
-
-  const addFriend = (friendId) => {
-    // Send the friend request
-    axios
-      .post(
-        "http://localhost:8080/friends",
-        { id: friendId },
-        { withCredentials: true }
-      )
-      .then(() => alert("Friend request sent!"))
-      .catch((err) => console.error("Error adding friend:", err));
-  };
 
   return (
     <ul role="list" className="divide-y divide-gray-100">
-      {users.map((user) => (
+      {friends.map((user) => (
         <li
           key={user.id}
           className="flex items-center justify-between gap-x-6 py-5"
@@ -49,10 +36,10 @@ export default function Members() {
           </div>
           <div className="flex flex-none items-center gap-x-4">
             <button
-              onClick={() => addFriend(user.id)}
               className="rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
+              onClick={() => alert("Messaging is not implemented yet")}
             >
-              Add Friend
+              Message
             </button>
           </div>
         </li>
